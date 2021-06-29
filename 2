@@ -1,0 +1,15 @@
+--ghc 8.0.2
+
+divisores :: Int -> [Int]
+divisores n = [x | x <- [1..n-1], n `mod` x == 0]
+
+es_subconjunto :: [a] -> [[a]]
+es_subconjunto [] = [[]]
+es_subconjunto (x:xs) = ess++[x:ys | ys <- ess]
+    where ess = es_subconjunto xs
+
+semi_perfecto :: Int -> Bool
+semi_perfecto n = or [sum ys == n | ys <- es_subconjunto (divisores n)]
+
+main = do
+print $ semi_perfecto 414
